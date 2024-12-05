@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter</title>
+    <link rel="stylesheet" media="screen and (min-width:760px)" href="desktop.css">
+    <link rel="stylesheet" media="screen and (max-width:760px)" href="mobile.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Currency Converter</h1>
+        <label for="conversionType">Choose conversion type:</label>
+        <select id="conversionType">
+            <option value="1">USD to INR</option>
+            <option value="2">EUR to INR</option>
+            <option value="3">INR to USD</option>
+            <option value="4">INR to EUR</option>
+            <option value="5">Exit</option>
+        </select>
+        <br>
+        <label for="amount">Enter the amount to convert:</label>
+        <input type="number" id="amount" placeholder="Amount" />
+        <button id="convertButton">Convert</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        document.getElementById('convertButton').addEventListener('click', function() {
+    const conversionType = document.getElementById('conversionType').value;
+    const amount = parseFloat(document.getElementById('amount').value);
+    const resultDiv = document.getElementById('result');
+
+    // Exchange rates
+    const usdToInr = 82.50;
+    const eurToInr = 90.00;
+    const inrToUsd = 0.012;
+    const inrToEur = 0.011;
+
+    let convertedAmount = 0.0;
+
+    if (conversionType === '5') {
+        resultDiv.innerHTML = "Exiting the Currency Converter. Goodbye!";
+        return;
+    }
+
+    if (isNaN(amount) || amount <= 0) {
+        resultDiv.innerHTML = "Please enter a valid amount.";
+        return;
+    }
+
+    switch (conversionType) {
+        case '1':
+            convertedAmount = amount * usdToInr;
+            resultDiv.innerHTML = `${amount.toFixed(2)} USD = ${convertedAmount.toFixed(2)} INR`;
+            break;
+        case '2':
+            convertedAmount = amount * eurToInr;
+            resultDiv.innerHTML = `${amount.toFixed(2)} EUR = ${convertedAmount.toFixed(2)} INR`;
+            break;
+        case '3':
+            convertedAmount = amount * inrToUsd;
+            resultDiv.innerHTML = `${amount.toFixed(2)} INR = ${convertedAmount.toFixed(2)} USD`;
+            break;
+        case '4':
+            convertedAmount = amount * inrToEur;
+            resultDiv.innerHTML = `${amount.toFixed(2)} INR = ${convertedAmount.toFixed(2)} EUR`;
+            break;
+        default:
+            resultDiv.innerHTML = "Invalid choice. Please try again.";
+    }
+});
+    </script>
+</body>
+</html>
